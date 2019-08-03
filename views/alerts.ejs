@@ -1,0 +1,6 @@
+<div class='' ng-controller="AlertDemoCtrl">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+</div>
+<div class='' ng-controller="successDemoCtrl">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+</div>

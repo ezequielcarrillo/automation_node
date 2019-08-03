@@ -1,0 +1,24 @@
+<section class='action_panel' ng-controller="webElements">
+    <div ng-show='isSelected() == 1'>
+        <div class='content'>
+            <%- include details.ejs %>
+                <div class='container_prop'>
+                    Select Locator:<select id='locator' ng-model="dataTransfer.data[0].locator">
+                             <np-option value={{dataTransfer.data[0].locator}}>{{dataTransfer.data[0].locator}}</option>
+                              <option value="tag">class</option>
+                              <option value="css">css</option>
+                              <option value="id">id</option>
+                              <option value="link">link</option>
+                              <option value="name">name</option>
+                              <option value="xpath">xpath</option>
+                              <option value="index">index</option>
+                     </select> Locator Value<input id='locatorvalue' ng-model=dataTransfer.data[0].locator_value />
+                    <button ng-click="saveObjectsProperties()">Save</button>
+                </div>
+                <%- include dependencies.ejs %>
+        </div>
+    </div>
+    <div ng-hide='isSelected() == 1'>
+        <p>Please Select an Element</p>
+    </div>
+</section>

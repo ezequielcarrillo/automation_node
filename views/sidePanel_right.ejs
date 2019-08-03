@@ -1,0 +1,20 @@
+<script src="./javascripts/sidePanel_controller.js"></script>
+<script src="./javascripts/dialogs_controller.js"></script>
+<script src="./javascripts/rightTree_controller.js"></script>
+
+<div ng-controller="SidePanel">
+    <aside class='right_panel sidePanel'>
+        <ul class="ui-widget icon-collection" ng-controller="RightPanel">
+            <li title="Refresh" class="ui-state-default ui-corner-all" ng-click="reloadRightPanel()">
+                <span class="ui-icon ui-icon-refresh"></span>
+            </li>
+        </ul>
+        <input type="text" class="" placeholder="search" ng-model="searchRightPanel" />
+        <div ng-controller='RightPanel'>
+            <ul>
+                <li drag ng-click="getSelectedElementData($event)" ng-repeat="item in rightTreeData.list | filter : searchRightPanel" type='{{item.object_type}}' class='t_{{item.object_type}} panelItem' id={{item.object_id}}><span>{{item.object_name}}</span></li>
+            </ul>
+        </div>
+    </aside>
+    <div class='right_panel_bar' ng-click="toggleSidePanels($event)"></div>
+</div>

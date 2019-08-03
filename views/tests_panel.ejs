@@ -1,0 +1,78 @@
+<section class='action_panel' ng-controller="TestSet">
+    <div id="tabs">
+        <ul>
+            <li><a href="#b">Workflow</a></li>
+            <li><a href="#g">Results History</a></li>
+        </ul>
+        <div ng-show='isSelected() == 1'>
+            <div id="b">
+                <div class='actions'>
+                    <button ng-disabled="workflowChange()" ng-click='saveTestWorkflow()'>Save</button>
+                    <button ng-disabled="selectedComponent()" ng-click='deleteTestWorkflow()'>Delete</button>
+                    <button ng-disabled="testEmpty()" ng-click='runTest()'>Run Test</button>
+                </div>
+                <div class='w_detail_class'>
+                    <%- include details.ejs %>
+                </div>
+                <div id="depend">
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Component</th>
+                            <th>Inputs</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody sortable>
+                        <tr class='testcomp' ng-model='dropworkflow' ng-repeat="item in dropworkflow track by $index">
+                            <td><input disabled class='index' type='text' ng-model="item.execution_order" /></td>
+                            <td class='new' id="{{item.object_id}}">{{item.object_name}}</td>
+                            <td class='param'>
+                                <table>
+                                    <tr ng-repeat="param in item.parameters track by $index">
+                                        <td class='input' id="{{param.param_id}}">{{param.parameter_name}}</td>
+                                        <td><input value="{{param.param_value}}" /></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr id='{{component.object_id}}' ng-click="select($event)" class="testcomp" ng-repeat="component in dataTransfer.data[1].workflow">
+                            <td><input disabled class='index' type='text' ng-model="component.execution_order" /></td>
+                            <td id='{{component.object_id}}'>{{component.object_name}}</td>
+                            <td class='param'>
+                                <table>
+                                    <tr ng-repeat="params in component.parameters">
+                                        <td id='' class='input'>{{params.parameter_name}}</td>
+                                        <td><input ng-model=p arams.param_value /></td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td>
+                                <!---   <img class='component_preview' src='pic/{{component.object_id}}' style="width:15%; height:10%;" >-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td drop-component class='compDrop' colspan="3">Drop Component Here</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button ng-disabled="dataTransfer.data[0].object_description.length == 0" ng-click="saveTestDetails()">Save</button><br/>
+                <textarea class='comment' ng-model=dataTransfer.data[0].object_description></textarea>
+            </div>
+            <div id="g">
+                <div ng-show="dataTransfer.data[1].results_history.length == 0"></div>
+                <ul class='results_history' ng-repeat="results in dataTransfer.data[1].results_history">
+                    executed_at: {{results.time_stamp}}<br/>
+                    <li>
+                        {{results.error_log}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div ng-hide='isSelected() == 1'>
+        <p>Please Select an Element</p>
+    </div>
+</section>

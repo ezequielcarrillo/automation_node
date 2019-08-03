@@ -1,0 +1,11 @@
+<div class='dependencies'>
+    <h4 ng-if='dataTransfer.data[1].dependencies.length >= 1'>Used {{dataTransfer.data[1].dependencies.length}} In Step:</h4>
+    <h4 ng-if='dataTransfer.data[1].dependencies.length == 0'>This Element is not used in any Step</h4>
+    <ul class='dependencies'>
+        <li ng-repeat="dependencies in dataTransfer.data[1].dependencies">
+            <div class='dp'>{{dependencies.object_name}}</div>
+            <div class='by'>{{dependencies.created_by}}</div>
+            <div class='at'>{{dependencies.created_at}}</div>
+        </li>
+    </ul>
+</div>

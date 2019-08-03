@@ -1,0 +1,27 @@
+<div id="a">
+    <div class='step_detail_class'>
+        <%- include details.ejs %>
+    </div>
+    <div class='step_comment'>
+        <table>
+            <tr>
+                <td>
+                    <button ng-disabled="dataTransfer.data[0].object_description.length == 0" ng-click="saveComponentDetails()">Save</button>
+                </td>
+                <td>
+                    <textarea class='comment' ng-model="dataTransfer.data[0].object_description"></textarea>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <%- include dependencies.ejs %>
+        <form method="post" action='/uploadScreenshot' enctype="multipart/form-data">
+            <input type='file' name='screenshot' />
+            <input type='hidden' name='component_id' value={{dataTransfer.data[0].object_id}} />
+            <input type='submit' value='Upload ScreenShot' class='button'>
+        </form>
+        <p ng-show="dataTransfer.data[0].object_screenshot_name.length == null">No screenshoot was added, Please do it now</p>
+        <img ng-if="dataTransfer.data[0].object_screenshot_name.length > 0" src='pic/{{dataTransfer.data[0].object_id}}' class='preview' /><br/>
+        <h5>{{dataTransfer.data[0].object_screenshot_name}}</h5>
+        <input ng-if="dataTransfer.data[0].object_screenshot_name.length >0" type='submit' value='Delete ScreenShot' class='button' ng-click="deleteScreenshot()" />
+</div>

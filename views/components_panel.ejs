@@ -1,0 +1,15 @@
+<section class='action_panel' ng-controller="Components">
+    <div id="tabs">
+        <ul>
+            <li><a href="#c">Parameters</a></li>
+            <li><a href="#a">Details</a></li>
+        </ul>
+        <div ng-show='isSelected() == 1'>
+            <%- include components_params.ejs %>
+                <%- include components_details.ejs %>
+        </div>
+    </div>
+    <div ng-hide='isSelected() == 1'>
+        <p>Please Select an Element</p>
+    </div>
+</section>

@@ -1,0 +1,95 @@
+<div id="c">
+    <button ng-disabled="paramsEmpty()" ng-click="savePageObjectParameter()">Save</button>
+    <button ng-click="addParameter($event)">Add Param</button>
+    <table>
+        <thead>
+            <tr>
+                <td ng-click="params()">Param Name</td>
+                <td>Param Value</td>
+                <td>Param Description</td>
+                <td></td>
+                <tr>
+        </thead>
+        <tbody class='p' ng-model='sofa'>
+            <tr class='paramrow sofa' ng-repeat="s in sofa track by $index">
+                <td><input type='text' class='name' placeholder='Name' /></td>
+                <td><input type='text' class='value' placeholder='Value' /></td>
+                <td><input type='text' class='desc' placeholder='Description' /></td>
+                <td>
+                    <li title="Delete" id='delete_item' class="ui-state-default ui-corner-all" ng-click="removeNewParam($event)">
+                        <span class="ui-icon ui-icon-trash"></span>
+                    </li>
+                </td>
+            </tr>
+            <tr id='{{param.id}}' class='paramrow' ng-repeat="param in dataTransfer.data[1].parameters">
+                <td><input type='text' class='name' placeholder="Name" ng-model=param.parameter_name /></td>
+                <td><input type='text' class='value' placeholder="Value" ng-model=param.parameter_value /></td>
+                <td><input type='text' class='desc' placeholder="Description" ng-model=param.parameter_description /></td>
+                <td>
+                    <li title="Delete" id='delete_item' class="ui-state-default ui-corner-all" ng-click="deleteParam($event)">
+                        <span class="ui-icon ui-icon-trash"></span>
+                    </li>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="parameters">
+        <button ng-disabled="autoEmpty()" ng-click="savePageObjectAutomation()">Save</button>
+        <button ng-click="addfields()">Add Auto</button>
+        <table>
+            <thead>
+                <tr>
+                    <td>Element</td>
+                    <td>Operation</td>
+                    <td>Param</td>
+                    <td></td>
+                    <tr>
+            </thead>
+            <tbody class='ad' sortable ng-model='automationObject'>
+                <tr ng-repeat="s in automationObject track by $index" class='autorow' id='{{auto.id}}' ng-repeat="auto in dataTransfer.data[1].automation">
+                    <td class='dropzone element' id='{{auto.object_id}}' drop>{{auto.object_name}}</td>
+                    <td>
+                        <select class='operation' ng-model="List" ng-options="operation.action_name for operation in dataTransfer.data[1].operations track by operation.id">
+                            <option value="">-- choose operation --</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class='param'>
+                            <option value='-1'>no-param</option>
+                            <option ng-repeat="param in dataTransfer.data[1].parameters" value='{{param.id}}'>{{param.parameter_name}}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <li title="Delete" id='delete_item' class="ui-state-default ui-corner-all" ng-click="removeNewAuto($event)">
+                            <span class="ui-icon ui-icon-trash"></span>
+                        </li>
+                    </td>
+                </tr>
+                <tr class='autorow' id='{{auto.id}}' ng-repeat="auto in dataTransfer.data[1].automation">
+                    <td class='dropzone element' id='{{auto.object_id}}' drop>{{auto.object_name}}</td>
+                    <td>
+                        <select class='operation'>
+                            <option value='{{auto.action_id}}' selected>{{auto.action_name}}</option>
+                            <option ng-repeat="operation in dataTransfer.data[1].operations">{{operation.action_name}}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class='param'>
+                            <option value='{{auto.param_id}}' selected>{{auto.parameter_name}}</option>
+                            <option ng-repeat="param in dataTransfer.data[1].parameters"></option>
+                        </select>
+                    </td>
+                    <td>
+                        <li title="Delete" id='delete_item' class="ui-state-default ui-corner-all" ng-click="deleteAuto($event)">
+                            <span class="ui-icon ui-icon-trash"></span>
+                        </li>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="automation">
+        <button ng-disabled="dataTransfer.data[0].object_script.length == 0  || dataTransfer.data[0].object_script == null" ng-click="savePageObjectScript()">Save</button>
+        <textarea class='script' ng-model=dataTransfer.data[0].object_script></textarea>
+    </div>
+</div>
